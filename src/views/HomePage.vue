@@ -1,44 +1,14 @@
 <script setup>
-import { ref } from "vue";
-import courseServices from "@/services/courseServices";
+import SearchBar from "@/components/SearchBar.vue";
 
-const searchText = ref("");
-const selectedSearchColumn = ref(null);
-
-/* exported variableName */
-const updateSearchQuery = () => {
-  courseServices
-    .getCourseById(1)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+const handleTextChange = (searchQuery, filterColumn) => {
+  console.log(searchQuery, filterColumn);
 };
 </script>
 
 <template>
   <div id="courses-list-view">
-    <v-toolbar dense floating class="ma-2 pa-2">
-      <v-text-field
-        class="ma-2"
-        style="width: 80%"
-        label="Search"
-        variant="outlined"
-        placeholder="Type to search..."
-        prepend-inner-icon="mdi-magnify"
-        v-model="searchText"
-        @input="updateSearchQuery"
-        hide-details
-        single-line
-      ></v-text-field>
-      <v-select
-        v-model="selectedSearchColumn"
-        :items="['Id', 'Name', 'Number']"
-        variant="solo-filled"
-      ></v-select>
-    </v-toolbar>
+    <SearchBar @text-change="handleTextChange"></SearchBar>
   </div>
 </template>
 
