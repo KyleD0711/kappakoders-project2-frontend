@@ -10,6 +10,10 @@ const handleTextChange = (searchQuery, filterColumn) => {
   <div id="courses-list-view">
     <SearchBar @text-change="handleTextChange"></SearchBar>
   </div>
+
+   <nav>
+    <RouterLink to="/edit">EDIT</RouterLink>
+  </nav>
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
