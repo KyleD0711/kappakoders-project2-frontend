@@ -70,37 +70,27 @@ const handleItemsPerPageChanged = (newPerPage) => {
         </v-toolbar>
       </template>
 
-      <!-- Custom actions column (Edit, Delete buttons) -->
       <template v-slot:[`item.actions`]="{ item }">
-        <v-btn @click="editCourse(item.id)" color="grey">Edit</v-btn>
-        <v-hover>
-          <template #default="{ isHovering, props }">
-            <v-btn
-              v-bind="props"
-              @click="deleteCourse(item.id)"
-              :color="isHovering ? 'red' : 'grey'"
-              style="margin-left: 30px"
-            >
-              Delete
-            </v-btn>
-          </template>
-        </v-hover>
+        <div style="display: flex; align-items: center;">
+          <v-btn
+            icon
+            small
+            flat
+            class="pa-0"
+            @click="editCourse(item.id)">
+            <v-icon small>mdi-pencil</v-icon>
+          </v-btn>
+          <v-btn
+            icon
+            small
+            flat
+            class="pa-0"
+            @click="deleteCourse(item.id)">
+            <v-icon small>mdi-delete</v-icon>
+          </v-btn>
+        </div>
       </template>
     </v-data-table-server>
   </v-container>
 </template>
 
-<style scoped>
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.pagination button {
-  margin: 0 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-}
-</style>
