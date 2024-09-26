@@ -7,6 +7,9 @@ export default {
   getCourses() {
     return apiClient.get("/courses/");
   },
+  getCoursesByPage(page, perPage) {
+    return apiClient.get(`/courses?page=${page}&perPage=${perPage}`);
+  },
   searchCourses(queryParams) {
     let params = [];
     for (const [key, value] of Object.entries(queryParams)) {
