@@ -1,23 +1,12 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import courseServices from '../services/courseServices';
+import { defineProps } from "vue";
 //const courseId = 123; // Replace with the actual course ID you want to fetch
 
-const courses = ref([]);
-
-const fetchCourses = async () => {
-  try {
-    const response = await courseServices.getCourses();
-    console.log(response.data);
-    courses.value = response.data;
-  } catch (error) {
-    console.error('Error fetching courses:', error);
-  }
-};
-
-onMounted(() => {
-  console.log("Fetching");
-  fetchCourses();
+const props = defineProps({
+  courses: {
+    type: Array,
+    required: true,
+  },
 });
 </script>
 
@@ -35,7 +24,7 @@ onMounted(() => {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="course in courses" :key="course.id">
+      <tr v-for="course in props.courses" :key="course.id">
         <td>{{ course.dept }}</td>
         <td>{{ course.courseNumber }}</td>
         <td>{{ course.level }}</td>
@@ -43,7 +32,6 @@ onMounted(() => {
         <td>{{ course.name }}</td>
         <td>{{ course.description }}</td>
         <td>
-          
           <v-btn @click="editCourse(course.id)" color="grey">Edit</v-btn>
           <v-hover v-slot:default="{ isHovering, props }">
             <v-btn
@@ -54,7 +42,6 @@ onMounted(() => {
               Delete
             </v-btn>
           </v-hover>
-
         </td>
       </tr>
     </tbody>
@@ -65,11 +52,12 @@ onMounted(() => {
 table {
   width: 100%;
   border-collapse: collapse;
-  padding-left: 20px; 
-  padding-right: 20px; 
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-th, td {
+th,
+td {
   border: 1px solid #ddd;
   padding: 8px;
 }
@@ -78,7 +66,4 @@ th {
   background-color: #f2f2f2;
   text-align: left;
 }
-
-
-
 </style>

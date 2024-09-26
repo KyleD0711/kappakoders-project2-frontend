@@ -1,13 +1,17 @@
 <script setup>
 import { ref, defineEmits } from "vue";
-
-const emit = defineEmits(["textChange"]);
+import { debounce } from "lodash";
+const emit = defineEmits(["text-change"]);
 
 const searchText = ref("");
 const selectedSearchColumn = ref(null);
 
+const debouncedEmit = debounce(() => {
+  emit("text-change", searchText.value, selectedSearchColumn.value);
+}, 800);
+
 const handleTextChange = () => {
-  emit("textChange", searchText.value, selectedSearchColumn.value);
+  debouncedEmit();
 };
 </script>
 
