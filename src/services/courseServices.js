@@ -5,9 +5,24 @@ export default {
     return apiClient.get(`/courses/${id}`);
   },
   getCourses() {
-    return apiClient.get('/courses/');
+    return apiClient.get("/courses/");
   },
-  getCoursesByPage(page, perPage) {
-    return apiClient.get(`/courses?page=${page}&perPage=${perPage}`);
-  }
+  searchCourses(queryParams) {
+    let params = [];
+
+    console.log(queryParams);
+    for (const [key, value] of Object.entries(queryParams)) {
+      if (value) {
+        params.push(`${key}=${value}`);
+      }
+    }
+
+    console.log(params);
+    let baseString = `/courses`;
+    if (params.length !== 0) {
+      baseString += "?" + params.join("&");
+    }
+
+    return apiClient.get(baseString);
+  },
 };
