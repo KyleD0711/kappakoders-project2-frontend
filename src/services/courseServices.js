@@ -9,15 +9,11 @@ export default {
   },
   searchCourses(queryParams) {
     let params = [];
-
-    console.log(queryParams);
     for (const [key, value] of Object.entries(queryParams)) {
-      if (value) {
+      if (value !== undefined && value !== "" && value !== null) {
         params.push(`${key}=${value}`);
       }
     }
-
-    console.log(params);
     let baseString = `/courses`;
     if (params.length !== 0) {
       baseString += "?" + params.join("&");

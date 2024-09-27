@@ -1,39 +1,29 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import courseServices from '../services/courseServices'; // Assuming courseServices is correctly set up
+import { ref, defineProps, defineEmits } from "vue";
 
-// Reactive variables
-const courses = ref([]);
-const currentPage = ref(6);
-const perPage = ref(10);
-const totalCourses = ref(0);
+const emit = defineEmits(["updated-value"]);
+
+const props = defineProps({
+  courses: {
+    type: Array,
+    required: true,
+  },
+});
+
+// Local, mutable references for pagination
+const localCurrentPage = ref(1);
+const localPerPage = ref(10);
 
 // Table headers
 const headers = ref([
-  { text: "Department", value: 'dept', align: 'start' },
-  { text: "Course Number", value: 'courseNumber', align: 'start' },
-  { text: "Level", value: 'level', align: 'start' },
-  { text: "Hours", value: 'hours', align: 'start' },
-  { text: "Name", value: 'name', align: 'start' },
-  { text: "Description", value: 'description', align: 'start' },
-  { text: "Actions" }
+  { text: "Department", value: "dept", align: "start" },
+  { text: "Course Number", value: "courseNumber", align: "start" },
+  { text: "Level", value: "level", align: "start" },
+  { text: "Hours", value: "hours", align: "start" },
+  { text: "Name", value: "name", align: "start" },
+  { text: "Description", value: "description", align: "start" },
+  { text: "Actions" },
 ]);
-
-// Fetch paginated courses
-const fetchCourses = async (page = 6, perPage = 10) => {
-  try {
-    const response = await courseServices.getCoursesByPage(page, perPage); 
-    courses.value = response.data.map(course => ({
-      ...course,
-      actions: [] // Placeholder if you need to add additional data related to actions
-    }));     totalCourses.value = response.data.total; 
-
-    console.log('Headers:', headers.value);
-    console.log('Courses:', courses.value);
-  } catch (error) {
-    console.error('Error fetching courses:', error);
-  }
-};
 
 // Handle Edit Course
 const editCourse = (id) => {
@@ -44,24 +34,28 @@ const editCourse = (id) => {
 const deleteCourse = (id) => {
   console.log(`Delete course with id: ${id}`);
 };
+// Emit updated value when page or items-per-page changes
+const handlePageChanged = (newPage) => {
+  localCurrentPage.value = newPage;
+  emit("updated-value", { page: newPage, perPage: localPerPage.value });
+};
 
-// Fetch courses on component mount
-onMounted(() => {
-  console.log(currentPage.value);
-  console.log(perPage.value)
-  fetchCourses(currentPage.value, perPage.value);
-});
+const handleItemsPerPageChanged = (newPerPage) => {
+  localPerPage.value = newPerPage;
+  emit("updated-value", { page: localCurrentPage.value, perPage: newPerPage });
+};
 </script>
 
 <template>
   <v-container>
     <v-data-table
-      :headers="headers.value"  
-      :items="courses"    
-      :items-per-page="perPage"
-      v-model:page="currentPage"
-      :server-items-length="totalCourses"
+      :headers="headers.value"
+      :items="props.courses"
+      :items-per-page="localPerPage"
+      :page="localCurrentPage"
       class="elevation-1"
+      @update:page="handlePageChanged"
+      @update:items-per-page="handleItemsPerPageChanged"
     >
       <template v-slot:top>
         <v-toolbar flat>
@@ -78,7 +72,7 @@ onMounted(() => {
               v-bind="props"
               @click="deleteCourse(item.id)"
               :color="isHovering ? 'red' : 'grey'"
-              style="margin-left: 30px;"
+              style="margin-left: 30px"
             >
               Delete
             </v-btn>
@@ -95,7 +89,6 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-
 }
 
 .pagination button {
