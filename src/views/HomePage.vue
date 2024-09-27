@@ -1,15 +1,9 @@
 <script setup>
-import SearchBar from "@/components/SearchBar.vue";
-
-const handleTextChange = (searchQuery, filterColumn) => {
-  console.log(searchQuery, filterColumn);
-};
+import CoursesDataTable from "@/components/CoursesDataTable.vue";
 </script>
 
 <template>
-  <div id="courses-list-view">
-    <SearchBar @text-change="handleTextChange"></SearchBar>
-  </div>
+  <CoursesDataTable />
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

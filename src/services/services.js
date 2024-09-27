@@ -1,6 +1,6 @@
 import axios from "axios";
 
-var baseURL = "http://localhost:3011";
+var baseURL = "http://localhost:3011/course-t1";
 var headers = {
   Accept: "application/json",
   "Content-Type": "application/json",
