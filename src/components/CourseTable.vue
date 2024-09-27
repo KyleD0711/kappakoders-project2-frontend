@@ -8,6 +8,10 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  totalCount: {
+    type: Number,
+    required: true,
+  },
 });
 
 // Local, mutable references for pagination
@@ -48,11 +52,14 @@ const handleItemsPerPageChanged = (newPerPage) => {
 
 <template>
   <v-container>
-    <v-data-table
+    <v-data-table-server
       :headers="headers.value"
       :items="props.courses"
       :items-per-page="localPerPage"
       :page="localCurrentPage"
+      :items-length="props.totalCount"
+      :items-per-page-options="[5, 10, 25, 50]"
+      disable-sort="true"
       class="elevation-1"
       @update:page="handlePageChanged"
       @update:items-per-page="handleItemsPerPageChanged"
@@ -79,7 +86,7 @@ const handleItemsPerPageChanged = (newPerPage) => {
           </template>
         </v-hover>
       </template>
-    </v-data-table>
+    </v-data-table-server>
   </v-container>
 </template>
 

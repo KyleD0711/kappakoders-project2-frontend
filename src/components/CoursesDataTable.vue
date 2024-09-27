@@ -17,17 +17,18 @@ const getData = () => {
     .searchCourses({
       searchString: searchString.value,
       searchColumn: filterColumn.value,
-      page: currentPage.value - 1,
+      page: currentPage.value,
       perPage: perPage.value,
     })
     .then((response) => {
-      courses.value = response.data.map((course) => {
+      courses.value = response.data.courses.map((course) => {
         var newCourses = {
           ...course,
           actions: [], // Placeholder if you need to add additional data related to actions
         };
         return newCourses;
       });
+      totalCourses.value = response.data.count;
     })
     .catch((err) => {
       console.log(err);
@@ -61,7 +62,7 @@ onMounted(() => {
     :courses="courses"
     :current-page="currentPage"
     :per-page="perPage"
-    :total-courses="totalCourses"
+    :total-count="totalCourses"
     @updated-value="handleUpdateValue"
   ></CourseTable>
 </template>

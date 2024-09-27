@@ -5,12 +5,8 @@ import { debounce } from "lodash";
 const emit = defineEmits(["text-change"]);
 
 const searchText = ref("");
-const selectedSearchColumn = ref(null);
+const selectedSearchColumn = ref("name");
 const select = ref([
-  {
-    text: "All",
-    value: "",
-  },
   {
     text: "Id",
     value: "id",
