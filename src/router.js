@@ -9,6 +9,7 @@ const routes = [
   },
   {
     path: "/edit",
+    name: "edit-course-page",
     component: EditPage,
   }
 

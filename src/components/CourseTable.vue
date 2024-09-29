@@ -1,5 +1,7 @@
 <script setup>
 import { ref, defineProps, defineEmits } from "vue";
+import router from 'C:/xampp/htdocs/KK Project2/kappakoders-project2-frontend/src/router.js'
+
 
 const emit = defineEmits(["updated-value"]);
 
@@ -30,8 +32,23 @@ const headers = ref([
 ]);
 
 // Handle Edit Course
-const editCourse = (id) => {
-  console.log(`Edit course with id: ${id}`);
+const editCourse = (item) => {
+  console.log(`Edit course with id: ${item.id}`);
+
+  console.log(item);
+
+  router.push({
+    name: 'edit-course-page',
+    query: { // Use query instead of params
+      deptText: item.dept,
+      courseNumText: item.courseNumber,
+      levelText: item.level,
+      hoursText: item.hours,
+      nameText: item.name,
+      descText: item.description,
+    },
+  });
+
 };
 
 // Handle Delete Course
@@ -77,7 +94,7 @@ const handleItemsPerPageChanged = (newPerPage) => {
             small
             flat
             class="pa-0"
-            @click="editCourse(item.id)">
+            @click="editCourse(item)">
             <v-icon small>mdi-pencil</v-icon>
           </v-btn>
           <v-btn
