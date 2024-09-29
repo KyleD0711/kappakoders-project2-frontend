@@ -31,6 +31,14 @@ const headers = ref([
   { text: "Actions" },
 ]);
 
+//Handle Add Course 
+const addCourse = () => {
+  router.push({
+    name: 'edit-course-page',
+    query: { },
+  });
+}
+
 // Handle Edit Course
 const editCourse = (item) => {
   console.log(`Edit course with id: ${item.id}`);
@@ -84,6 +92,11 @@ const handleItemsPerPageChanged = (newPerPage) => {
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>Courses</v-toolbar-title>
+          <v-btn
+            @click="addCourse()"
+            class="addBtn">
+            Add course
+          </v-btn>
         </v-toolbar>
       </template>
 

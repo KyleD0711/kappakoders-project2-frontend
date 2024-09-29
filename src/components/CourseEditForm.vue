@@ -54,6 +54,8 @@
 </template>
 
 <script>
+
+import { axios } from "axios";
 export default {
   data() {
     return {
@@ -72,6 +74,25 @@ export default {
       // Logic for handling form submission
       console.log("Form submitted with: ", this.inputText);
       // You can add your own custom logic here, like making an API call
+    
+      try {
+      // Send a PUT request to the API to update the course
+      const response =  axios.put(`/api/courses/${this.$route.params.id}`, {
+        dept: this.editData.deptText,
+        courseNumber: this.editData.courseNumText,
+        level: this.editData.levelText,
+        hours: this.editData.hoursText,
+        name: this.editData.nameText,
+        description: this.editData.descText,
+      });
+
+      console.log("Course successfully updated:", response.data);
+      // Optionally, redirect or reset the form
+      this.$router.push('/'); // Redirect to the home page or wherever needed
+    } catch (error) {
+      console.error("There was an error updating the course:", error);
+      alert("An error occurred while updating the course. Please try again.");
+    }
     }
   },
   mounted() {
