@@ -47,7 +47,7 @@ const handleTextChange = () => {
 </script>
 
 <template>
-  <div id="search-bar" class="w-100">
+  <div id="search-bar" class="w-100 search-bar">
     <v-toolbar :elevation="8" class="mx-auto my-2 pa-2 w-75 rounded-lg">
       <v-text-field
         class="ma-2 w-75"
@@ -73,3 +73,9 @@ const handleTextChange = () => {
     </v-toolbar>
   </div>
 </template>
+
+<style scoped>
+.search-bar {
+  margin-top: 70px; 
+}
+</style>
