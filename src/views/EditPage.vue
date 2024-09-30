@@ -1,11 +1,11 @@
 <template>
- 
+ <OCHeader></OCHeader>
   <edit-form :id="$route.params.id"></edit-form>
 </template>
 
 
 <script setup>
-//import OCHeader from "@/components/OCHeader.vue";
+import OCHeader from "@/components/OCHeader.vue";
 
 </script>
 

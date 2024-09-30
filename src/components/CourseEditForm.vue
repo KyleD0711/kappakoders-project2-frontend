@@ -74,6 +74,12 @@ const submitForm = () => {
   });
 };
 
+const goBack = () => {
+    router.push({
+    name: 'home-page',
+  });
+}
+
 </script>
 
 <template>
@@ -125,6 +131,27 @@ const submitForm = () => {
       outlined
     ></v-text-field>
 
-    <v-btn color="primary" type="submit">Submit</v-btn>
+    <v-btn class="cancel" color="primary" type="cancel" @click="goBack()">Cancel</v-btn>
+    <v-btn class="sub-btn" color="primary" type="submit">Submit</v-btn>
   </v-form>
 </template>
+
+<style scoped>
+
+.v-form {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+}
+
+.v-btn {
+    width: 40%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.cancel {
+background-color: #7d2534 !important;
+}
+
+</style>
