@@ -1,5 +1,7 @@
 <script setup>
 import { ref, defineProps, onMounted } from "vue";
+import router from '@/router.js'
+
 
 import courseServices from "@/services/courseServices";
 
@@ -66,6 +68,10 @@ const submitForm = () => {
         console.error("Error updating course:", error);
         });
   }
+
+  router.push({
+    name: 'home-page',
+  });
 };
 
 </script>

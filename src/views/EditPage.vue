@@ -10,7 +10,7 @@
 </script>
 
 <script>
-import EditForm from 'C:/xampp/htdocs/KK Project2/kappakoders-project2-frontend/src/components/CourseEditForm.vue'
+import EditForm from '@/components/CourseEditForm.vue'
 
 export default {
   components: {

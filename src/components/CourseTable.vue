@@ -1,6 +1,6 @@
 <script setup>
 import { ref, defineProps, defineEmits } from "vue";
-import router from 'C:/xampp/htdocs/KK Project2/kappakoders-project2-frontend/src/router.js'
+import router from '@/router.js'
 
 
 const emit = defineEmits(["updated-value"]);

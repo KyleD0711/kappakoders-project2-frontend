@@ -5,6 +5,7 @@ import EditPage from "./views/EditPage.vue";
 const routes = [
   {
     path: "/",
+    name: "home-page",
     component: HomePage,
   },
   {
