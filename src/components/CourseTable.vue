@@ -1,6 +1,8 @@
 <script setup>
 import { ref, defineProps, defineEmits } from "vue";
 import router from '@/router.js'
+import courseServices from "@/services/courseServices";
+
 
 
 const emit = defineEmits(["updated-value"]);
@@ -54,6 +56,7 @@ const editCourse = (item) => {
 // Handle Delete Course
 const deleteCourse = (id) => {
   console.log(`Delete course with id: ${id}`);
+  courseServices.delete(id)
 };
 // Emit updated value when page or items-per-page changes
 const handlePageChanged = (newPage) => {
