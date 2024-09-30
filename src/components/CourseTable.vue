@@ -33,11 +33,8 @@ const headers = ref([
 
 //Handle Add Course 
 const addCourse = () => {
-  router.push({
-    name: 'edit-course-page',
-    query: { },
-  });
-}
+  router.push({ name: 'add-course-page' });
+};
 
 // Handle Edit Course
 const editCourse = (item) => {
@@ -47,14 +44,9 @@ const editCourse = (item) => {
 
   router.push({
     name: 'edit-course-page',
-    query: { // Use query instead of params
-      deptText: item.dept,
-      courseNumText: item.courseNumber,
-      levelText: item.level,
-      hoursText: item.hours,
-      nameText: item.name,
-      descText: item.description,
-    },
+    params: {
+      id: item.id,
+    }
   });
 
 };

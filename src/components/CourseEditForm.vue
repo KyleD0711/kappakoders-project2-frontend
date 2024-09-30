@@ -1,18 +1,88 @@
+<script setup>
+import { ref, defineProps, onMounted } from "vue";
+
+import courseServices from "@/services/courseServices";
+
+
+const props = defineProps({
+    id: {
+        type: Number,
+        required: false,
+        default: -1
+    }
+})
+
+
+const editData = ref({
+    dept: '',
+    courseNumber: '',
+    level: '',
+    hours: '',
+    name: '',
+    desc: '',
+});
+
+onMounted(async () => {
+    if (props.id !== -1) {
+    try {
+      const response = await courseServices.getCourseById(props.id);
+      const course = response.data;
+
+        console.log(response.data);
+
+      // Populate editData with the course information
+      editData.value = {
+        dept: course.dept,
+        courseNumber: course.courseNumber,
+        level: course.level,
+        hours: course.hours,
+        name: course.name,
+        description: course.description,
+      };
+    } catch (error) {
+      console.error("Error fetching course:", error);
+    }
+  }
+});
+
+const submitForm = () => {
+  // Logic to handle form submission, e.g., update or save course
+  console.log("Form submitted with:", editData.value);
+
+  if (props.id !== -1) {
+    courseServices.updateCourse(props.id, editData.value)
+        .then(() => {
+        console.log("Course updated successfully");
+        })
+        .catch((error) => {
+        console.error("Error updating course:", error);
+        });
+  } else {
+    courseServices.createCourse(editData.value)
+        .then(() => {
+        console.log("Course updated successfully");
+        })
+        .catch((error) => {
+        console.error("Error updating course:", error);
+        });
+  }
+};
+
+</script>
+
 <template>
   <v-form @submit.prevent="submitForm">
-    
     <div class="field-name">Department: </div>
     <v-text-field
       label="Enter Department"
-      v-model="editData.deptText"
-      class="field-edit"
+      v-model="editData.dept"
       outlined
     ></v-text-field>
 
     <div class="field-name">Course Number: </div>
     <v-text-field
       label="Enter Course Number"
-      v-model="editData.courseNumText"
+      v-model="editData.courseNumber"
       class="field-edit"
       outlined
     ></v-text-field>
@@ -20,7 +90,7 @@
     <div class="field-name">Course Level: </div>
     <v-text-field
       label="Enter Course Level"
-      v-model="editData.levelText"
+      v-model="editData.level"
       class="field-edit"
       outlined
     ></v-text-field>
@@ -28,7 +98,7 @@
     <div class="field-name">Course Hours: </div>
     <v-text-field
       label="Enter Course Hours"
-      v-model="editData.hoursText"
+      v-model="editData.hours"
       class="field-edit"
       outlined
     ></v-text-field>
@@ -36,7 +106,7 @@
     <div class="field-name">Course Name: </div>
     <v-text-field
       label="Enter Course Name"
-      v-model="editData.nameText"
+      v-model="editData.name"
       class="field-edit"
       outlined
     ></v-text-field>
@@ -44,7 +114,7 @@
     <div class="field-name">Course Description: </div>
     <v-text-field
       label="Enter Course Description"
-      v-model="editData.descText"
+      v-model="editData.description"
       class="field-edit"
       outlined
     ></v-text-field>
@@ -52,56 +122,3 @@
     <v-btn color="primary" type="submit">Submit</v-btn>
   </v-form>
 </template>
-
-<script>
-
-import { axios } from "axios";
-export default {
-  data() {
-    return {
-        editData: {
-            deptText: '',
-            courseNumText: '',
-            levelText: '',
-            hoursText: '',
-            nameText: '',
-            descText: '',
-        }
-    };
-  },
-  methods: {
-    submitForm() {
-      // Logic for handling form submission
-      console.log("Form submitted with: ", this.inputText);
-      // You can add your own custom logic here, like making an API call
-    
-      try {
-      // Send a PUT request to the API to update the course
-      const response =  axios.put(`/api/courses/${this.$route.params.id}`, {
-        dept: this.editData.deptText,
-        courseNumber: this.editData.courseNumText,
-        level: this.editData.levelText,
-        hours: this.editData.hoursText,
-        name: this.editData.nameText,
-        description: this.editData.descText,
-      });
-
-      console.log("Course successfully updated:", response.data);
-      // Optionally, redirect or reset the form
-      this.$router.push('/'); // Redirect to the home page or wherever needed
-    } catch (error) {
-      console.error("There was an error updating the course:", error);
-      alert("An error occurred while updating the course. Please try again.");
-    }
-    }
-  },
-  mounted() {
-    this.editData.deptText = this.$route.query.deptText || '';
-  this.editData.courseNumText = this.$route.query.courseNumText || '';
-  this.editData.levelText = this.$route.query.levelText || '';
-  this.editData.hoursText = this.$route.query.hoursText || '';
-  this.editData.nameText = this.$route.query.nameText || '';
-  this.editData.descText = this.$route.query.descText || '';
-  }
-};
-</script>

@@ -1,8 +1,13 @@
 <template>
-    <div>This is the course edit page</div>
-    <edit-form></edit-form>
+ 
+  <edit-form :id="$route.params.id"></edit-form>
 </template>
 
+
+<script setup>
+//import OCHeader from "@/components/OCHeader.vue";
+
+</script>
 
 <script>
 import EditForm from 'C:/xampp/htdocs/KK Project2/kappakoders-project2-frontend/src/components/CourseEditForm.vue'

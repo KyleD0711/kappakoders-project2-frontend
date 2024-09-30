@@ -8,7 +8,12 @@ const routes = [
     component: HomePage,
   },
   {
-    path: "/edit",
+    path: "/add",
+    name: "add-course-page",
+    component: EditPage,
+  },
+  {
+    path: "/edit/:id",
     name: "edit-course-page",
     component: EditPage,
   }
