@@ -12,7 +12,6 @@ const searchString = ref("");
 const filterColumn = ref("");
 
 const getData = () => {
-  console.log(filterColumn.value);
   courseServices
     .searchCourses({
       searchString: searchString.value,
