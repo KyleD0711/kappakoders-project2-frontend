@@ -1,16 +1,14 @@
 <script setup>
-import SearchBar from "@/components/SearchBar.vue";
+import CoursesDataTable from "@/components/CoursesDataTable.vue";
+import OCHeader from "@/components/OCHeader.vue";
 
-const handleTextChange = (searchQuery, filterColumn) => {
-  console.log(searchQuery, filterColumn);
-};
 </script>
 
 <template>
-  <div id="courses-list-view">
-    <SearchBar @text-change="handleTextChange"></SearchBar>
-  </div>
+  <OCHeader/>
+  <CoursesDataTable />
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped></style>
+
