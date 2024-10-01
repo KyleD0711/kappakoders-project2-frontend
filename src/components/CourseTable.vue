@@ -57,9 +57,7 @@ const editCourse = (item) => {
 const deleteCourse = (id) => {
   console.log(`Delete course with id: ${id}`);
   courseServices.deleteCourse(id)
-  router.push({
-    name: 'home-page',
-  });
+  router.go(0);
 };
 // Emit updated value when page or items-per-page changes
 const handlePageChanged = (newPage) => {
