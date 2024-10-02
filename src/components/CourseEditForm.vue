@@ -51,6 +51,11 @@ const submitForm = () => {
   // Logic to handle form submission, e.g., update or save course
   console.log("Form submitted with:", editData.value);
 
+  if (editData.value.dept == '' || editData.value.courseNumber == '' || editData.value.level == '' || editData.value.hours == '' || editData.value.name == '') {
+
+    alert("Please input all required fields");
+  } else {
+
   if (props.id !== -1) {
     courseServices.updateCourse(props.id, editData.value)
         .then(() => {
@@ -72,6 +77,7 @@ const submitForm = () => {
   router.push({
     name: 'home-page',
   });
+}
 };
 
 const goBack = () => {
@@ -84,14 +90,14 @@ const goBack = () => {
 
 <template>
   <v-form @submit.prevent="submitForm">
-    <div class="field-name">Department: </div>
+    <div class="field-name">Department * </div>
     <v-text-field
       label="Enter Department"
       v-model="editData.dept"
       outlined
     ></v-text-field>
 
-    <div class="field-name">Course Number: </div>
+    <div class="field-name">Course Number * </div>
     <v-text-field
       label="Enter Course Number"
       v-model="editData.courseNumber"
@@ -99,7 +105,7 @@ const goBack = () => {
       outlined
     ></v-text-field>
 
-    <div class="field-name">Course Level: </div>
+    <div class="field-name">Course Level * </div>
     <v-text-field
       label="Enter Course Level"
       v-model="editData.level"
@@ -107,7 +113,7 @@ const goBack = () => {
       outlined
     ></v-text-field>
 
-    <div class="field-name">Course Hours: </div>
+    <div class="field-name">Course Hours * </div>
     <v-text-field
       label="Enter Course Hours"
       v-model="editData.hours"
@@ -115,7 +121,7 @@ const goBack = () => {
       outlined
     ></v-text-field>
 
-    <div class="field-name">Course Name: </div>
+    <div class="field-name">Course Name * </div>
     <v-text-field
       label="Enter Course Name"
       v-model="editData.name"
