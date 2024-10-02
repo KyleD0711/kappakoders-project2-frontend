@@ -92,14 +92,14 @@ const goBack = () => {
 
 <template>
   <v-form @submit.prevent="submitForm">
-    <div class="field-name">Department:</div>
+    <div class="field-name">Department *</div>
     <v-text-field
       label="Enter Department"
       v-model="editData.dept"
       outlined
     ></v-text-field>
 
-    <div class="field-name">Course Number:</div>
+    <div class="field-name">Course Number *</div>
     <v-text-field
       label="Enter Course Number"
       v-model="editData.courseNumber"
@@ -107,7 +107,7 @@ const goBack = () => {
       outlined
     ></v-text-field>
 
-    <div class="field-name">Course Level:</div>
+    <div class="field-name">Course Level *</div>
     <v-text-field
       label="Enter Course Level"
       v-model="editData.level"
@@ -115,7 +115,7 @@ const goBack = () => {
       outlined
     ></v-text-field>
 
-    <div class="field-name">Course Hours:</div>
+    <div class="field-name">Course Hours *</div>
     <v-text-field
       label="Enter Course Hours"
       v-model="editData.hours"
@@ -123,7 +123,7 @@ const goBack = () => {
       outlined
     ></v-text-field>
 
-    <div class="field-name">Course Name:</div>
+    <div class="field-name">Course Name *</div>
     <v-text-field
       label="Enter Course Name"
       v-model="editData.name"
