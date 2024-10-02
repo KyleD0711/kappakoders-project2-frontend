@@ -52,7 +52,7 @@ const editCourse = (item) => {
   });
 
 };
-
+//Change
 // Handle Delete Course
 const deleteCourse = (id) => {
   console.log(`Delete course with id: ${id}`);
