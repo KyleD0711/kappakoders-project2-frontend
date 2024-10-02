@@ -21,4 +21,13 @@ export default {
 
     return apiClient.get(baseString);
   },
+  createCourse(params) {
+    return apiClient.post(`/courses`, params)
+  },
+  updateCourse(id, params) {
+    return apiClient.put(`/courses/${id}`, params)
+  },
+  deleteCourse(id) {
+    return apiClient.delete(`/courses/${id}`);
+  }
 };

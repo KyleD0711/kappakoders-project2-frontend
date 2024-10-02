@@ -1,5 +1,9 @@
 <script setup>
 import { ref, defineProps, defineEmits } from "vue";
+import router from '@/router.js'
+import courseServices from "@/services/courseServices";
+
+
 
 const emit = defineEmits(["updated-value"]);
 
@@ -29,14 +33,36 @@ const headers = ref([
   { text: "Actions" },
 ]);
 
-// Handle Edit Course
-const editCourse = (id) => {
-  console.log(`Edit course with id: ${id}`);
+//Handle Add Course 
+const addCourse = () => {
+  router.push({ name: 'add-course-page' });
 };
 
+// Handle Edit Course
+const editCourse = (item) => {
+  console.log(`Edit course with id: ${item.id}`);
+
+  console.log(item);
+
+  router.push({
+    name: 'edit-course-page',
+    params: {
+      id: item.id,
+    }
+  });
+
+};
+//Change
 // Handle Delete Course
 const deleteCourse = (id) => {
   console.log(`Delete course with id: ${id}`);
+  courseServices.deleteCourse(id)
+  router.push({
+      name: 'home-page',
+    }).then(() => {
+      window.location.reload()
+    });
+  
 };
 // Emit updated value when page or items-per-page changes
 const handlePageChanged = (newPage) => {
@@ -67,6 +93,11 @@ const handleItemsPerPageChanged = (newPerPage) => {
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>Courses</v-toolbar-title>
+          <v-btn
+            @click="addCourse()"
+            class="addBtn">
+            Add course
+          </v-btn>
         </v-toolbar>
       </template>
 
@@ -77,7 +108,7 @@ const handleItemsPerPageChanged = (newPerPage) => {
             small
             flat
             class="pa-0"
-            @click="editCourse(item.id)">
+            @click="editCourse(item)">
             <v-icon small>mdi-pencil</v-icon>
           </v-btn>
           <v-btn
