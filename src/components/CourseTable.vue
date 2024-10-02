@@ -60,7 +60,7 @@ const deleteCourse = (id) => {
   router.push({
       name: 'home-page',
     }).then(() => {
-      router.go(0);  // Reload the current route to reflect the changes
+      window.location.reload()
     });
   
 };
