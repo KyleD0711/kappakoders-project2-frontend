@@ -1,7 +1,7 @@
 <script setup>
 import CoursesDataTable from "@/components/CoursesDataTable.vue";
 import OCHeader from "@/components/OCHeader.vue";
-
+import NotificationBar from "@/components/AnnouncementBar.vue";
 
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
@@ -12,7 +12,9 @@ const showNotification = ref(false);
 const notificationMessage = ref('');
 
 onMounted(() => {
+  console.log('Outside');
   if (route.query.message) {
+    console.log('Inside')
     console.log(route.query.message);
     notificationMessage.value = route.query.message;
     showNotification.value = true;

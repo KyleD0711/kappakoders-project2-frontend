@@ -1,6 +1,6 @@
 <template>
  <OCHeader></OCHeader>
-  <edit-form :id="$route.params.id" @submitted="handleSubmit"></edit-form>
+  <edit-form @submit="handleSubmit"></edit-form>
 </template>
 
 
@@ -10,10 +10,14 @@ import OCHeader from "@/components/OCHeader.vue";
 </script>
 
 <script>
+import { ref } from 'vue';
+import AnnouncementBar from '@/components/announcementBar.vue';  // Adjust the path
 import EditForm from '@/components/CourseEditForm.vue'
 
 import { useRouter } from 'vue-router';
 const router = useRouter();
+const announcementBar = ref(null);
+
 
 export default {
   components: {

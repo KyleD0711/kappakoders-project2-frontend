@@ -4,7 +4,11 @@
 
 <script setup>
 
-import {ref} from 'vue';
+import {ref, watch} from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();  // Access route and query params
+
 
 const showMessage = ref(false);
 const message = ref('');
@@ -17,7 +21,13 @@ const triggerMessage = (msg) => {
     }, 2000);
 };
 
-defineExpose({ triggerMessage });
+
+// Watch the route query for message changes
+watch(() => route.query.message, (newMessage) => {
+  if (newMessage) {
+    triggerMessage(newMessage);  // Show notification when message changes
+  }
+});
 </script>
 
 <style scoped>

@@ -1,8 +1,10 @@
 <script setup>
-import { ref, defineProps, onMounted, emit } from "vue";
+import { ref, defineProps, onMounted, defineEmits } from "vue";
 import router from "@/router.js";
 
 import courseServices from "@/services/courseServices";
+
+const emit = defineEmits(['submitted'])
 
 const props = defineProps({
   id: {
