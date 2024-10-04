@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, onMounted } from "vue";
+import { ref, defineProps, onMounted, emit } from "vue";
 import router from "@/router.js";
 
 import courseServices from "@/services/courseServices";
@@ -61,7 +61,7 @@ const submitForm = () => {
       courseServices
         .updateCourse(props.id, editData.value)
         .then(() => {
-          console.log("Course updated successfully");
+          emit('submitted', `Course ${props.id} successfully updated!`)
         })
         .catch((error) => {
           console.error("Error updating course:", error);
@@ -70,7 +70,7 @@ const submitForm = () => {
       courseServices
         .createCourse(editData.value)
         .then(() => {
-          console.log("Course updated successfully");
+          emit('submitted', `Course ${editData.value.name} successfully updated!`)
         })
         .catch((error) => {
           console.error("Error updating course:", error);
