@@ -4,9 +4,6 @@ import router from "@/router.js";
 
 import courseServices from "@/services/courseServices";
 
-const isError = ref(false); // Flag to show error message
-const errorMessage = ref(""); // Error message content
-
 const props = defineProps({
   id: {
     type: Number,
@@ -51,39 +48,43 @@ const submitForm = async () => {
   // Logic to handle form submission, e.g., update or save course
   console.log("Form submitted with:", editData.value);
 
-  try {
-    let response;
-
-    if (
-      editData.value.dept == "" ||
-      editData.value.courseNumber == "" ||
-      editData.value.level == "" ||
-      editData.value.hours == "" ||
-      editData.value.name == ""
-    ) {
-      alert("Please input all required fields");
-    } else {
-      if (props.id !== -1) {
-        response = await courseServices.updateCourse(props.id, editData.value);
-      } else {
-        response = await courseServices.createCourse(editData.value);
-      }
-
-      if (response.status < 205) {
-        router.push({
-          name: "home-page",
+  if (
+    editData.value.dept == "" ||
+    editData.value.courseNumber == "" ||
+    editData.value.level == "" ||
+    editData.value.hours == "" ||
+    editData.value.name == ""
+  ) {
+    alert("Please input all required fields");
+  } else {
+    if (props.id !== -1) {
+      courseServices
+        .updateCourse(props.id, editData.value)
+        .then(() => {
+          router.push({
+            name: "home-page",
+          });
+        })
+        .catch((err) => {
+          alert(
+            `Failed to submit the course: ${err.message}. Please check your data and try again.`
+          );
         });
-      } else {
-        isError.value = true;
-        alert(
-          `Failed to submit the course: ${response.statusText}. Please check your data and try again.`
-        );
-      }
+    } else {
+      courseServices
+        .createCourse(editData.value)
+        .then(() => {
+          router.push({
+            name: "home-page",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(
+            `Failed to submit the course: ${err.message}. Please check your data and try again.`
+          );
+        });
     }
-  } catch (error) {
-    // Handle network errors or other issues
-    isError.value = true;
-    errorMessage.value = `Error submitting the course: ${error.message}`;
   }
 };
 
