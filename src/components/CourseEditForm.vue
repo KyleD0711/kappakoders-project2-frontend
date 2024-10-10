@@ -4,8 +4,6 @@ import router from "@/router.js";
 
 import courseServices from "@/services/courseServices";
 
-
-
 const props = defineProps({
   id: {
     type: Number,
@@ -46,45 +44,48 @@ onMounted(async () => {
   }
 });
 
-const submitForm = async() => {
+const submitForm = async () => {
   // Logic to handle form submission, e.g., update or save course
   console.log("Form submitted with:", editData.value);
 
-
-
-if (
-  editData.value.dept == "" ||
-  editData.value.courseNumber == "" ||
-  editData.value.level == "" ||
-  editData.value.hours == "" ||
-  editData.value.name == ""
-) {
-  alert("Please input all required fields");
-} else {
-  if (props.id !== -1) {
-    courseServices.updateCourse(props.id, editData.value)
-    .then(() => {
-      router.push({
-        name: "home-page"
-      })
-    })
-    .catch((err) => {
-      alert(`Failed to submit the course: ${err}. Please check your data and try again.`);
-    })
-
+  if (
+    editData.value.dept == "" ||
+    editData.value.courseNumber == "" ||
+    editData.value.level == "" ||
+    editData.value.hours == "" ||
+    editData.value.name == ""
+  ) {
+    alert("Please input all required fields");
   } else {
-    courseServices.createCourse(editData.value)
-    .then(() => {
-      router.push({
-        name: "home-page"
-      })
-    })
-    .catch((err) => {
-      alert(`Failed to submit the course: ${err}. Please check your data and try again.`);
-    });
-
+    if (props.id !== -1) {
+      courseServices
+        .updateCourse(props.id, editData.value)
+        .then(() => {
+          router.push({
+            name: "home-page",
+          });
+        })
+        .catch((err) => {
+          alert(
+            `Failed to submit the course: ${err.message}. Please check your data and try again.`
+          );
+        });
+    } else {
+      courseServices
+        .createCourse(editData.value)
+        .then(() => {
+          router.push({
+            name: "home-page",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(
+            `Failed to submit the course: ${err.message}. Please check your data and try again.`
+          );
+        });
+    }
   }
-}
 };
 
 const goBack = () => {
